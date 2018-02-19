@@ -1,46 +1,70 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-    },
+var map;
+function initMap() {
+   map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 8,
+    center: {lat: -34.397, lng: 150.644}
+  });
+  var geocoder = new google.maps.Geocoder();
 
-    // deviceready Event Handler
-    //
-    // Bind any cordova events here. Common events are:
-    // 'pause', 'resume', etc.
-    onDeviceReady: function() {
-        this.receivedEvent('deviceready');
-    },
+  var myLatLng = {lat: -34.397, lng: 150.644};
 
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+  var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Sydney'
+        });
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
 
-        console.log('Received Event: ' + id);
+  document.getElementById('submit').addEventListener('click', function() {
+    geocodeAddress(geocoder, map);
+  });
+}
+
+function geocodeAddress(geocoder, resultsMap) {
+  var address = document.getElementById('address').value;
+  geocoder.geocode({'address': address}, function(results, status) {
+    if (status === 'OK') {
+      resultsMap.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+        map: resultsMap,
+        position: results[0].geometry.location
+      });
+
+      //Get lat and long
+      var latitude = results[0].geometry.location.lat();
+      var longitude = results[0].geometry.location.lng();
+      document.getElementById("lat").innerHTML = "Latitude: " + latitude;
+      document.getElementById("long").innerHTML = "Longitude: " + longitude;
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
     }
-};
+  });
+}
 
-app.initialize();
+  var curLat;
+  var curLong;
+
+    //Get current location
+    var onSuccess = function(position) {
+      curLat = position.coords.latitude;
+      curLong = position.coords.longitude;
+      };
+
+    navigator.geolocation.getCurrentPosition(onSuccess);
+
+    function showLocation() {
+      document.getElementById("lat").innerHTML = "Latitude: " + curLat;
+      document.getElementById("long").innerHTML = "Longitude: " + curLong;
+      document.getElementById("address").value = curLat + "," +curLong;
+
+      map.setCenter({lat: curLat, lng: curLong});
+
+      var curLatLng = {lat: curLat, lng: curLong};
+
+      var marker = new google.maps.Marker({
+              position: curLatLng,
+              map: map,
+              title: 'curLocation'
+            });
+          }
+    
