@@ -1,0 +1,23 @@
+      #top-panel {
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+
+      #top-panel i {
+        font-size: 12px;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        width: 100%;
+      }
+      #top-panel {
+        height: 25%;
+      }
+      #output {
+        font-size: 11px;
+      }

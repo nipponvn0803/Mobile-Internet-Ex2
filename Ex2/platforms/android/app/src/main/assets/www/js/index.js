@@ -2,11 +2,11 @@ var map;
 function initMap() {
    map = new google.maps.Map(document.getElementById('map'), {
     zoom: 8,
-    center: {lat: -34.397, lng: 150.644}
+    center: {lat: -33.8688197, lng: 151.20929550000005}
   });
   var geocoder = new google.maps.Geocoder();
 
-  var myLatLng = {lat: -34.397, lng: 150.644};
+  var myLatLng = {lat: -33.8688197, lng: 151.20929550000005};
 
   var marker = new google.maps.Marker({
           position: myLatLng,
@@ -58,6 +58,7 @@ function geocodeAddress(geocoder, resultsMap) {
       document.getElementById("address").value = curLat + "," +curLong;
 
       map.setCenter({lat: curLat, lng: curLong});
+      map.setZoom(15);
 
       var curLatLng = {lat: curLat, lng: curLong};
 
@@ -67,4 +68,3 @@ function geocodeAddress(geocoder, resultsMap) {
               title: 'curLocation'
             });
           }
-    
