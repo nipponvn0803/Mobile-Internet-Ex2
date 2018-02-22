@@ -8,22 +8,26 @@
 
   </head>
   <body>
+    <div id="phpcode">
+
+    </div>
     <div id="floating-panel">
-      <form action="data.php" method="get">
-        <input id="address" type="textbox" value="Sydney">
+      <form action="http://www.students.oamk.fi/~t6trso00/MobInt/data.php" method="get">
+        <input id="address" type="text" name="address" value="Sydney">
         <input id="submit" type="button" value="Search"> <br>
-        Latitude: <input id="lat" readonly="readonly"> <br>
-        Longitude: <input id="long" readonly="readonly"> <br>
+        Latitude: <input id="lat" type="text" name="lat" readonly="readonly" value="-33.86"> <br>
+        Longitude: <input id="long" type="text" name="long" readonly="readonly" value="151.209"> <br>
         Note: <input id="note" type="text" name="note"><br>
-        <input type="submit">
+        <input type='submit' value='Save' onclick='saveData()'>
       </form>
     </div>
     <div id="map"></div>
 
     <div class="navbar">
-      <a href="index.html" class="active">Home</a>
+      <a href="index.html">Home</a>
       <a href="Phase2.html">Phase2</a>
       <a href="Phase3.html">Phase3</a>
+      <a href="Phase4.html" class="active">Phase4</a>
     </div>
 
     <script src="js/Phase4.js" charset="utf-8"></script>
